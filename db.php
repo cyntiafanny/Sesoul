@@ -5,4 +5,4 @@
     $dbname="sesoul";
 
     $conn=mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);
->
+?>
