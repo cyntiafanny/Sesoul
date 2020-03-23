@@ -32,17 +32,17 @@ CREATE TABLE matched (
   id varchar(5) NOT NULL primary key,
   user1 varchar(5) NOT NULL,
   user2 varchar(5) NOT NULL,
-  chat int(3) NOT NULL
-  FOREIGN KEY (user1) REFERENCES user(id);
-  FOREIGN KEY (user2) REFERENCES user(id);
+  chat int(3) NOT NULL,
+  FOREIGN KEY (user1) REFERENCES user(id),
+  FOREIGN KEY (user2) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE liked (
   id varchar(5) NOT NULL primary key,
   yangLike varchar(5) NOT NULL,
   dilike varchar(5) NOT NULL,
-  FOREIGN KEY (yangLike) REFERENCES user(id);
-  FOREIGN KEY (dilike) REFERENCES user(id);
+  FOREIGN KEY (yangLike) REFERENCES user(id),
+  FOREIGN KEY (dilike) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -57,7 +57,7 @@ CREATE TABLE user (
   password varchar(18) DEFAULT NULL,
   nama varchar(100) DEFAULT NULL,
   umur int(3) DEFAULT NULL,
-  lokasi varchar(100) DEFAULT NULL
+  lokasi varchar(100) DEFAULT NULL,
   foto varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
