@@ -37,6 +37,14 @@ CREATE TABLE matched (
   FOREIGN KEY (user2) REFERENCES user(id);
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE liked (
+  id varchar(5) NOT NULL primary key,
+  yangLike varchar(5) NOT NULL,
+  dilike varchar(5) NOT NULL,
+  FOREIGN KEY (yangLike) REFERENCES user(id);
+  FOREIGN KEY (dilike) REFERENCES user(id);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- --------------------------------------------------------
 
 --
@@ -88,6 +96,21 @@ INSERT INTO user (id, username, password, nama, umur, lokasi) VALUES
 ('usr28', 'axax', '123', 'Remen', 21, 'Surabaya','sample.png'),
 ('usr29', 'ayay', '123', 'Estee', 20, 'Surabaya','sample.png'),
 ('usr30', 'azaz', '123', 'Fanov', 19, 'Surabaya','sample.png');
+
+
+INSERT INTO matched VALUES
+('mtc01', 'usr30', 'usr28', 1),
+('mtc02', 'usr22', 'usr08', 1),
+('mtc03', 'usr01', 'usr30', 1);
+
+INSERT INTO liked VALUES
+('lke01', 'usr30', 'usr28'),
+('lke02', 'usr28', 'usr30'),
+('lke03', 'usr22', 'usr08'),
+('lke04', 'usr08', 'usr22'),
+('lke05', 'usr30', 'usr01'),
+('lke06', 'usr01', 'usr30'),
+('lke07', 'usr01', 'usr28');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
