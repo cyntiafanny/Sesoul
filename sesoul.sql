@@ -22,36 +22,8 @@ SET time_zone = "+00:00";
 -- Database: `sesoul`
 --
 
--- --------------------------------------------------------
 
---
--- Table structure for table `matched`
---
-
-CREATE TABLE matched (
-  id varchar(5) NOT NULL primary key,
-  user1 varchar(5) NOT NULL,
-  user2 varchar(5) NOT NULL,
-  chat int(3) NOT NULL,
-  FOREIGN KEY (user1) REFERENCES user(id),
-  FOREIGN KEY (user2) REFERENCES user(id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE liked (
-  id varchar(5) NOT NULL primary key,
-  yangLike varchar(5) NOT NULL,
-  dilike varchar(5) NOT NULL,
-  FOREIGN KEY (yangLike) REFERENCES user(id),
-  FOREIGN KEY (dilike) REFERENCES user(id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-CREATE TABLE user (
+CREATE TABLE users (
   id varchar(5) NOT NULL primary key,
   username varchar(100) DEFAULT NULL,
   password varchar(18) DEFAULT NULL,
@@ -65,7 +37,38 @@ CREATE TABLE user (
 -- Dumping data for table `user`
 --
 
-INSERT INTO user (id, username, password, nama, umur, lokasi) VALUES
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `matched`
+--
+
+CREATE TABLE matched (
+  id varchar(5) NOT NULL primary key,
+  user1 varchar(5) NOT NULL,
+  user2 varchar(5) NOT NULL,
+  chat int(3) NOT NULL,
+  FOREIGN KEY (user1) REFERENCES users(id),
+  FOREIGN KEY (user2) REFERENCES users(id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE liked (
+  id varchar(5) NOT NULL primary key,
+  yangLike varchar(5) NOT NULL,
+  dilike varchar(5) NOT NULL,
+  FOREIGN KEY (yangLike) REFERENCES users(id),
+  FOREIGN KEY (dilike) REFERENCES users(id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+
+
+INSERT INTO users (id, username, password, nama, umur, lokasi, foto) VALUES
 ('usr01', 'abcabc', '123', 'Layla', 18, 'Moonton','sample.png'),
 ('usr02', 'aa', '123', 'Miya', 29, 'Moonton','sample.png'),
 ('usr03', 'aaa', '123', 'Nana', 29, 'Moonton','sample.png'),
