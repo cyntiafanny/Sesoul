@@ -112,7 +112,7 @@
         {
           echo "<div class='col-md-6 col-md-4 col-lg-3'>";
               echo "<div class='team-block bottom'>";
-                echo "<img src='" . $DATA['foto'] . "' class='img-responsive' alt='img'>";
+                echo "<img src='img/user/" . $DATA['foto'] . "' class='img-responsive' alt='img'>";
                 echo "<div class='team-content'>";
                   echo "<h4>";
                     echo $DATA['nama'];
