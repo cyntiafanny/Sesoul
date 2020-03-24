@@ -1,4 +1,4 @@
-<?php
+<!--?php
 	session_start();
 
 	include 'db.php';
@@ -47,7 +47,7 @@
 			$_SESSION['message']="Password did not match!";
 		}
 	}
-?>
+?-->
 
 <!-- Belom kelar -->
 
@@ -133,16 +133,16 @@
 				<!--Body-->
 				<div class="modal-body mb-1">
 				  <div class="md-form form-sm mb-5">
-					<input type="text" id="modalLRInput10" class="form-control form-control-sm validate">
+					<input type="text" id="modalLRInput10" name="username" class="form-control form-control-sm validate">
 					<label data-error="wrong" data-success="right" for="modalLRInput10">Username</label>
 				  </div>
 
 				  <div class="md-form form-sm mb-4">
-					<input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
+					<input type="password" id="modalLRInput11" name="password" class="form-control form-control-sm validate">
 					<label data-error="wrong" data-success="right" for="modalLRInput11">Password</label>
 				  </div>
 				  <div class="text-center mt-2">
-					<button class="btn btn-info" onClick = "window.location.href='home.php'">Log in</button>
+					<button class="btn btn-info" onClick = "logreg.php'">Log in</button>
 				  </div>
 				</div>
 				<!--Footer-->
