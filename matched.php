@@ -82,85 +82,41 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>21, Jakarta</h5>
-			<button class="btn" onClick="window.location.href='chat.php'"><i class="fa fa-comment"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>22, Tangerang</h5>
-			<button class="btn"><i class="fa fa-comment"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>32, Surabaya</h5>
-			<button class="btn"><i class="fa fa-comment"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>19, Palembang</h5>
-			<button class="btn"><i class="fa fa-comment"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>25, Semarang</h5>
-			<button class="btn"><i class="fa fa-comment"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>21, Tangerang</h5>
-			<button class="btn"><i class="fa fa-comment"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-			<h5>27, Bekasi</h5>
-			<button class="btn"><i class="fa fa-comment"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>22, Palangkaraya</h5>
-			<button class="btn"><i class="fa fa-comment"></i></button>
-          </div>
-		  
-        </div>
+		
+		<?php
+			$host = "localhost";
+			$username = "root";
+			$dbname = "sesoul";
+			$password = "";
+			
+			$db = new mysqli($host, $username, $password, $dbname);
+			$userid = "SELECT id FROM users WHERE username = 'azaz'";
+			$resultid = $db->query($userid);
+			$rowid = $resultid->fetch_assoc();
+			
+			$matched = "SELECT user1, chat FROM matched WHERE user2 = '".$rowid['id']."' UNION SELECT user2, chat FROM matched WHERE user1 = '".$rowid['id']."'";
+			$resultmatched = $db->query($matched);
+			
+			while($rowmatched = $resultmatched->fetch_assoc()){
+				$query = "SELECT * FROM users WHERE id ='".$rowmatched['user1']."'";
+				$result = $db->query($query);
+				
+				
+				while($row = $result->fetch_assoc()){					
+						echo '<div class="col-md-6 col-lg-3">';
+						echo '<div class="feature-block">';
+						echo '<img src="img/user/' .$row["foto"].'"alt="img" class="img-fluid">';
+						echo '<h4>' . $row["nama"].'</h4>';
+						echo '<h5>'.$row["umur"].', '.$row["lokasi"].'</h5>';
+						echo "<button class='btn' onClick=\"window.location.href='chat.php?q=".$rowmatched['chat']."'\"><i class='fa fa-comment'></i></button>";
+						echo '</div></div>';
+				}
+				
+			}
+			?>
+		
 
       </div>
-	  
-	  <div>
-			<a href="#" class="previous">&laquo; Previous</a>
-			<a href="#" class="next">Next &raquo;</a>
-	  </div>
     </div>
 
   </section>
