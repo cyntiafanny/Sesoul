@@ -131,20 +131,22 @@
 			  <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
 
 				<!--Body-->
-				<div class="modal-body mb-1">
-				  <div class="md-form form-sm mb-5">
-					<input type="text" id="modalLRInput10" name="username" class="form-control form-control-sm validate">
-					<label data-error="wrong" data-success="right" for="modalLRInput10">Username</label>
-				  </div>
+				<form action="logreg.php" method="post" accept-charset="utf-8">
+					<div class="modal-body mb-1">
+						<div class="md-form form-sm mb-5">
+						<input type="text" id="modalLRInput10" name="username" class="form-control form-control-sm validate">
+						<label data-error="wrong" data-success="right" for="modalLRInput10">Username</label>
+						</div>
 
-				  <div class="md-form form-sm mb-4">
-					<input type="password" id="modalLRInput11" name="password" class="form-control form-control-sm validate">
-					<label data-error="wrong" data-success="right" for="modalLRInput11">Password</label>
-				  </div>
-				  <div class="text-center mt-2">
-					<button class="btn btn-info" onClick = "logreg.php'">Log in</button>
-				  </div>
-				</div>
+						<div class="md-form form-sm mb-4">
+						<input type="password" id="modalLRInput11" name="password" class="form-control form-control-sm validate">
+						<label data-error="wrong" data-success="right" for="modalLRInput11">Password</label>
+						</div>
+						<div class="text-center mt-2">
+						<input type="submit" name="login" value="Login">
+						</div>
+					</div>
+				</form>
 				<!--Footer-->
 				<div class="modal-footer">
 				  <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
@@ -157,90 +159,92 @@
 			  <div class="tab-pane fade" id="panel8" role="tabpanel">
 
 				<!--Body-->
-				<div class="modal-body">
-				  <div class="md-form form-sm mb-5">
-					<input type="text" id="modalLRInput12" class="form-control form-control-sm validate">
-					<label data-error="wrong" data-success="right" for="modalLRInput12">Name</label>
-				  </div>
+				<form action="logreg.php" method="post" enctype="multipart/form-data">
+					<div class="modal-body">
+					<div class="md-form form-sm mb-5">
+						<input type="text" id="modalLRInput12" name="nama" class="form-control form-control-sm validate">
+						<label data-error="wrong" data-success="right" for="modalLRInput12">Name</label>
+					</div>
 
-				  <div class="md-form form-sm mb-5">
-					<input type="text" id="modalLRInput13" class="form-control form-control-sm validate">
-					<label data-error="wrong" data-success="right" for="modalLRInput13">Age</label>
-				  </div>
+					<div class="md-form form-sm mb-5">
+						<input type="text" id="modalLRInput13" name="umur" class="form-control form-control-sm validate">
+						<label data-error="wrong" data-success="right" for="modalLRInput13">Age</label>
+					</div>
 
-				  <div class="md-form form-sm mb-4">
-					<input type="text" id="modalLRInput14" class="form-control form-control-sm validate">
-					<label data-error="wrong" data-success="right" for="modalLRInput14">Location</label>
-				  </div>
-				  
-				  <div class="md-form form-sm mb-4">
-					<input type="text" id="modalLRInput15" class="form-control form-control-sm validate">
-					<label data-error="wrong" data-success="right" for="modalLRInput15">Username</label>
-				  </div>
-				  
-				  <div class="md-form form-sm mb-4">
-					<input type="password" id="modalLRInput16" class="form-control form-control-sm validate">
-					<label data-error="wrong" data-success="right" for="modalLRInput16">Password</label>
-				  </div>
-				  
-				  <div class="md-form form-sm mb-4">
-					<input type="password" id="modalLRInput17" class="form-control form-control-sm validate">
-					<label data-error="wrong" data-success="right" for="modalLRInput17">Re-enter Password</label>
-				  </div>
-				  
-				  <label for="myfile">Profile Picture</label>
-				<input type="file" id="myfile" name="myfile">
-				  
-				<!-- <?php
-				$target_dir = "uploads/";
-				$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-				$uploadOk = 1;
-				$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-				// Check if image file is a actual image or fake image
-				if(isset($_POST["submit"])) {
-					$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-					if($check !== false) {
-						echo "File is an image - " . $check["mime"] . ".";
-						$uploadOk = 1;
-					} else {
-						echo "File is not an image.";
+					<div class="md-form form-sm mb-4">
+						<input type="text" id="modalLRInput14" name="lokasi" class="form-control form-control-sm validate">
+						<label data-error="wrong" data-success="right" for="modalLRInput14">Location</label>
+					</div>
+					
+					<div class="md-form form-sm mb-4">
+						<input type="text" id="modalLRInput15" name="username" class="form-control form-control-sm validate">
+						<label data-error="wrong" data-success="right" for="modalLRInput15">Username</label>
+					</div>
+					
+					<div class="md-form form-sm mb-4">
+						<input type="password" id="modalLRInput16" name="password" class="form-control form-control-sm validate">
+						<label data-error="wrong" data-success="right" for="modalLRInput16">Password</label>
+					</div>
+					
+					<div class="md-form form-sm mb-4">
+						<input type="password" id="modalLRInput17" name="repass" class="form-control form-control-sm validate">
+						<label data-error="wrong" data-success="right" for="modalLRInput17">Re-enter Password</label>
+					</div>
+					
+					<label for="myfile">Profile Picture</label>
+					<input type="file" id="avatar" name="avatar" class="inp">
+					
+					<!-- <?php
+					$target_dir = "uploads/";
+					$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+					$uploadOk = 1;
+					$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+					// Check if image file is a actual image or fake image
+					if(isset($_POST["submit"])) {
+						$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+						if($check !== false) {
+							echo "File is an image - " . $check["mime"] . ".";
+							$uploadOk = 1;
+						} else {
+							echo "File is not an image.";
+							$uploadOk = 0;
+						}
+					}
+					// Check if file already exists
+					if (file_exists($target_file)) {
+						echo "Sorry, file already exists.";
 						$uploadOk = 0;
 					}
-				}
-				// Check if file already exists
-				if (file_exists($target_file)) {
-					echo "Sorry, file already exists.";
-					$uploadOk = 0;
-				}
-				// Check file size
-				if ($_FILES["fileToUpload"]["size"] > 500000) {
-					echo "Sorry, your file is too large.";
-					$uploadOk = 0;
-				}
-				// Allow certain file formats
-				if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-				&& $imageFileType != "gif" ) {
-					echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-					$uploadOk = 0;
-				}
-				// Check if $uploadOk is set to 0 by an error
-				if ($uploadOk == 0) {
-					echo "Sorry, your file was not uploaded.";
-				// if everything is ok, try to upload file
-				} else {
-					if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-						echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-					} else {
-						echo "Sorry, there was an error uploading your file.";
+					// Check file size
+					if ($_FILES["fileToUpload"]["size"] > 500000) {
+						echo "Sorry, your file is too large.";
+						$uploadOk = 0;
 					}
-				}
-				?>-->
+					// Allow certain file formats
+					if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+					&& $imageFileType != "gif" ) {
+						echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+						$uploadOk = 0;
+					}
+					// Check if $uploadOk is set to 0 by an error
+					if ($uploadOk == 0) {
+						echo "Sorry, your file was not uploaded.";
+					// if everything is ok, try to upload file
+					} else {
+						if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+							echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+						} else {
+							echo "Sorry, there was an error uploading your file.";
+						}
+					}
+					?>-->
 
-				  <div class="text-center form-sm mt-2">
-					<button class="btn btn-info">Sign up</button>
-				  </div>
+					<div class="text-center form-sm mt-2">
+						<input type="submit" name="register" value="Register">
+					</div>
 
-				</div>
+					</div>
+				</form>
 			  <!--/.Panel 8-->
 			</div>
 

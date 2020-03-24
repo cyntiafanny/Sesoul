@@ -16,7 +16,7 @@
 
         $sql = "SELECT * FROM users WHERE username = '$user' AND password='$pass";
 
-        $result = mysqli_query($conn. $sql);
+        $result = mysqli_query($conn,$sql);
         $count = mysqli_num_rows($result);
 
         if($count == 1){
@@ -30,14 +30,14 @@
         }
     }
     else if(isset($_POST['register'])){
-        if($_POST['pass']==$_POST['repass']){
-			0
+        if($_POST['password']==$_POST['repass']){
+			
 			$username=$_POST['username'];
 			$password=$_POST['password'];
 			$nama=$_POST['nama'];
 			$umur=$_POST['umur'];
 			$lokasi=$_POST['lokasi'];
-			$foto='image/'.$_FILES['avatar']['name'];
+			$foto='img/'.$_FILES['avatar']['name'];
 
 			if(preg_match("!image!", $_FILES['avatar']['type'])){
 
