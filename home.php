@@ -1,4 +1,25 @@
-<?php?>
+<?php
+  ob_start();
+
+  $Host = "localhost";
+  $Username = "root";
+  $Password = "";
+  $DBname = "sesoul";
+
+  //$Connect = new PDO("mysql:host=$Host;dbname=$DBname;", $Username, $Password);
+  $Connect = new mysqli($Host, $Username, $Password, $DBname);
+
+  if ($Connect->connect_error) 
+  {
+      die("Connection failed: " . $Connect->connect_error);
+  }
+
+  $Tipe = rtrim(strtr(base64_encode("Standard"), '+/', '-_'), '='); //Masukin pas login aja
+  setcookie('Akun', $Tipe, time() + (86400 * 30), "/");
+  $_SESSION['SID'] = "CEHadmin";
+  setcookie('SID', $_SESSION['SID'], time() + (86400 * 30), "/");
+  session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +86,7 @@
   <section id="team" class="padd-section text-center wow fadeInUp">
 
 	<div class="search-container">
-    <form action="/action_page.php">
+    <form action="action_page.php">
       <input type="text" placeholder="Search by name..." name="search">
       <button type="submit"><i class="fa fa-search"></i></button>
     </form>
@@ -82,57 +103,35 @@
 	<div class="container">
       <div class="row">
 
-        <div class="col-md-6 col-md-4 col-lg-3">
-          <div class="team-block bottom">
-            <img src="img/team/1.jpg" class="img-responsive" alt="img">
-            <div class="team-content">
-              <h4>Carlos</h4>
-			  <span>31, Jakarta</span>
-			  <button class="btn"><i class="fa fa-heart"></i></button>
-            </div>
-          </div>
-        </div>
-
-       <div class="col-md-6 col-md-4 col-lg-3">
-          <div class="team-block bottom">
-            <img src="img/team/2.jpg" class="img-responsive" alt="img">
-            <div class="team-content">
-              <h4>Jessie</h4>
-			  <span>27, Magelang</span>
-			  <button class="btn"><i class="fa fa-heart"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-md-4 col-lg-3">
-          <div class="team-block bottom">
-            <img src="img/team/3.jpg" class="img-responsive" alt="img">
-            <div class="team-content">
-              <h4>Harry</h4>
-			  <span>32, Tangerang</span>
-			  <button class="btn"><i class="fa fa-heart"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-md-4 col-lg-3">
-          <div class="team-block bottom">
-            <img src="img/team/4.jpg" class="img-responsive" alt="img">
-            <div class="team-content">
-              <h4>Kimberly</h4>
-			  <span>21, Semarang</span>
-			  <button class="btn"><i class="fa fa-heart"></i></button>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <?php
+        $Query = "SELECT `id`, `nama`, `lokasi`, `umur`, `foto` FROM `users`;";
+        $Result = mysqli_query($Connect, $Query) or die($Connect);
+        $Row = mysqli_num_rows($Result);
+    
+        while($DATA = $Result->fetch_assoc())
+        {
+          echo "<div class='col-md-6 col-md-4 col-lg-3'>";
+              echo "<div class='team-block bottom'>";
+                echo "<img src='" . $DATA['foto'] . "' class='img-responsive' alt='img'>";
+                echo "<div class='team-content'>";
+                  echo "<h4>";
+                    echo $DATA['nama'];
+                    echo "</h4>";
+                    echo "<span>";
+                      echo $DATA['umur'] . ", " . $DATA['lokasi'];
+                    echo "</span>";
+                    echo " <a href=\"addLiker.php?id=".$DATA['id']."\" class='btn btn-light'><i class='fa fa-heart'></i></a>";
+                echo "</div>";
+              echo "</div>";
+            echo "</div>";
+        }
+      ?>
 	  
-	  <div>
+	  <!--<div>
 			<a href="#" class="previous">&laquo; Previous</a>
 			<a href="#" class="next">Next &raquo;</a>
 	  </div>
-    </div>
+    </div>-->
 
   </section>
   

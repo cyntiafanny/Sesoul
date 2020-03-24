@@ -1,4 +1,29 @@
-<?php?>
+<?php
+  ob_start();
+
+  $Host = "localhost";
+  $Username = "root";
+  $Password = "";
+  $DBname = "sesoul";
+
+  //$Connect = new PDO("mysql:host=$Host;dbname=$DBname;", $Username, $Password);
+  $Connect = new mysqli($Host, $Username, $Password, $DBname);
+
+  if ($Connect->connect_error) 
+  {
+      die("Connection failed: " . $Connect->connect_error);
+  }
+  
+  if(isset($_COOKIE['Akun']))
+  {
+    $Tipe = base64_decode(str_pad(strtr($_COOKIE['Akun'], '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT)); 
+
+    if($Tipe == "Premium")
+    {
+      header("Location: likedPremiumAcc.php");
+    }
+  }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +100,7 @@
 
         <h3>Your Liker<span>(s)</span> </h3>
         <p class="separator">Sorry, you are on standard account :(</p>
-		<p>Upgrade to premium to get this benefit</p>
+		<p>Upgrade to Premium to get this benefit</p>
 
       </div>
     </div>
