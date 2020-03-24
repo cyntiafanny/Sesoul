@@ -51,7 +51,10 @@
 					
 					if(mysqli_query($conn,$sql)){
 						$_SESSION['message']="Registration Successful!";
-						header("location:home.php");
+						echo '<script language="javascript">';
+						echo 'alert("Registration Successful!")';
+						echo '</script>';
+						header("location:index.php");
 					}
 					else{
 						$_SESSION['message']="Database Error! Could not enter the information";
