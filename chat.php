@@ -65,30 +65,38 @@
   <section id="chat" class="padd-section text-center wow fadeInUp">
 
   <button class="btn-left" onClick="window.location.href='matched.php'">Back</button>
-  <h2>Lorem</h2>
+  <h2>Sesoul Team</h2>
 
-	<div class="containers">
-	  <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
-	  <p>Hello. How are you today?</p>
-	</div>
-
-	<div class="containers darker">
-	  <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;">
-	  <p>Hey! I'm fine. Thanks for asking!</p>
-	</div>
-
-	<div class="containers">
-	  <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
-	  <p>Sweet! So, what do you wanna do today?</p>
-	</div>
-
-	<div class="containers darker">
-	  <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;">
-	  <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-	</div>
-     
-	 <div class="col-lg-12 col-md-12">
+	<?php
+	$host = "localhost";
+			$username = "root";
+			$dbname = "sesoul";
+			$password = "";
+			
+			$db = new mysqli($host, $username, $password, $dbname);
+	
+	$sess = $_GET['q'];
+	$matched = "SELECT id FROM matched WHERE chat ='$sess'";
+	$resultmatched = $db->query($matched);
+	$rowmatched = $resultmatched->fetch_assoc();
+	
+	$chat = "SELECT nama, isi FROM chat WHERE matchedid ='".$rowmatched['id']."'";
+	$resultchat = $db->query($chat);
+	
+	while($rowchat = $resultchat->fetch_assoc()){
+		echo '<div class="containers">';
+		echo '<h5>'.$rowchat['nama'].'</h5>';
+		echo '<p>'.$rowchat['isi'].'</p>';
+		echo '</div>';
+	}
+	
+	?>
+  
+  
+		
+	<div class="col-lg-12 col-md-12">
           <div class="form">
+		  <form method = "post">
               <div class="form-group">
                 <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Write your message..." placeholder="Write your message..."></textarea>
                 <div class="validation"></div>
@@ -97,9 +105,15 @@
             </form>
           </div>
         </div>
-	 
-  </section>
-  
+		
+		<?php
+			$chatIsi = $_POST['message'];
+			
+			$que = "INSERT INTO chat"
+		
+		?>
+		
+		
 	<div id="modal01" class="w3-modal" onclick="this.style.display='none'">
 	  <img class="w3-modal-content" id="img01" style="width:100%">
 	</div>
