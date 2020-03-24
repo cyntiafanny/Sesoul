@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 
 
 CREATE TABLE users (
-  id varchar(5) NOT NULL primary key,
+  id varchar(5) AS CONCAT('usr','',PID) STORED, PID INT auto_increment) NOT NULL primary key,
   username varchar(100) DEFAULT NULL,
   password varchar(18) DEFAULT NULL,
   nama varchar(100) DEFAULT NULL,
@@ -60,6 +60,14 @@ CREATE TABLE liked (
   FOREIGN KEY (dilike) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE chat(
+chatid varchar(5) NOT NULL primary key,
+  matchedid varchar(5) NOT NULL,
+  nama varchar(100) NOT NULL,
+  isi varchar (100) NOT NULL,
+  FOREIGN KEY (matchedid) REFERENCES matched(id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- --------------------------------------------------------
 
 --
@@ -69,14 +77,14 @@ CREATE TABLE liked (
 
 
 INSERT INTO users (id, username, password, nama, umur, lokasi, foto) VALUES
-('usr01', 'abcabc', '123', 'Layla', 18, 'Moonton','sample.png'),
-('usr02', 'aa', '123', 'Miya', 29, 'Moonton','sample.png'),
-('usr03', 'aaa', '123', 'Nana', 29, 'Moonton','sample.png'),
-('usr04', 'aaaaa', '123', 'Bruno', 30, 'Moonton','sample.png'),
-('usr05', 'aaaaaaa', '123', 'Tigreal', 33, 'Moonton','sample.png'),
+('usr01', 'abcabc', '123', 'Bruno', 18, 'Moonton','1.jpg'),
+('usr02', 'aa', '123', 'Miya', 29, 'Moonton','2.jpg'),
+('usr03', 'aaa', '123', 'Nana', 29, 'Moonton','3.jpg'),
+('usr04', 'aaaaa', '123', 'Layla', 30, 'Moonton','4.jpg'),
+('usr05', 'aaaaaaa', '123', 'Tigreal', 33, 'Moonton','1.jpg'),
 ('usr06', 'abab', '123', 'Zilong', 35, 'Moonton','sample.png'),
 ('usr07', 'acac', '123', 'Natalia', 31, 'Moonton','sample.png'),
-('usr08', 'adad', '123', 'Freya', 30, 'Moonton','sample.png'),
+('usr08', 'adad', '123', 'Fanov', 30, 'Moonton','sample.png'),
 ('usr09', 'aeae', '123', 'Karina', 35, 'Moonton','sample.png'),
 ('usr10', 'afaf', '123', 'Johnson', 32, 'Moonton','sample.png'),
 ('usr11', 'agag', '123', 'Harley', 33, 'Moonton','sample.png'),
@@ -98,13 +106,13 @@ INSERT INTO users (id, username, password, nama, umur, lokasi, foto) VALUES
 ('usr27', 'awaw', '123', 'Natre', 22, 'Semarang','sample.png'),
 ('usr28', 'axax', '123', 'Remen', 21, 'Surabaya','sample.png'),
 ('usr29', 'ayay', '123', 'Estee', 20, 'Surabaya','sample.png'),
-('usr30', 'azaz', '123', 'Fanov', 19, 'Surabaya','sample.png');
+('usr30', 'azaz', '123', 'Freya', 19, 'Surabaya','sample.png');
 
 
 INSERT INTO matched VALUES
 ('mtc01', 'usr30', 'usr28', 1),
-('mtc02', 'usr22', 'usr08', 1),
-('mtc03', 'usr01', 'usr30', 1);
+('mtc02', 'usr22', 'usr08', 2),
+('mtc03', 'usr01', 'usr30', 3);
 
 INSERT INTO liked VALUES
 ('lke01', 'usr30', 'usr28'),
@@ -114,6 +122,20 @@ INSERT INTO liked VALUES
 ('lke05', 'usr30', 'usr01'),
 ('lke06', 'usr01', 'usr30'),
 ('lke07', 'usr01', 'usr28');
+
+INSERT INTO chat VALUES
+('cht01','mtc01','Freya','Hai, boleh kenalan?'),
+('cht02','mtc01','Remen','Boleh, aku remen, kamu siapa?'),
+('cht03','mtc01','Freya','Aku Freya, boleh minta no wa?'),
+('cht04','mtc01','Remen','Ini yaa, 087878162871929'),
+('cht05','mtc02','Fanov','Hai, boleh kenalan?'),
+('cht06','mtc02','Fanov','P'),
+('cht07','mtc02','Fanov','P'),
+('cht08','mtc02','Fanov','Kalo gabales dajjal'),
+('cht09','mtc02','Fanov','Yah beneran gadibales :('),
+('cht10','mtc03','Bruno','Hei, kangen deh'),
+('cht11','mtc03','Freya','?'),
+('cht12','mtc03','Bruno','Judes amat :(');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
