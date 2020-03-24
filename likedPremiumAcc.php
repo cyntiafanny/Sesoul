@@ -1,4 +1,32 @@
-<?php?>
+<?php
+  ob_start();
+
+  $Host = "localhost";
+  $Username = "root";
+  $Password = "";
+  $DBname = "sesoul";
+
+  //$Connect = new PDO("mysql:host=$Host;dbname=$DBname;", $Username, $Password);
+  $Connect = new mysqli($Host, $Username, $Password, $DBname);
+
+  if ($Connect->connect_error) 
+  {
+      die("Connection failed: " . $Connect->connect_error);
+  }
+  
+  if(isset($_COOKIE['Akun']))
+  {
+    $Tipe = base64_decode(str_pad(strtr($_COOKIE['Akun'], '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT)); 
+
+    if($Tipe != "Premium")
+    {
+      header("Location: likedStandardAcc.php");
+    }
+
+    $Tipe = rtrim(strtr(base64_encode("Standard"), '+/', '-_'), '=');
+    setcookie('Akun', $Tipe, time() + (86400 * 30), "/");
+  }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,15 +72,15 @@
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <h1><a href="#body" class="scrollto">S<span>e</span>soul</a></h1>
+        <h1><a href="home.php" class="scrollto">S<span>e</span>soul</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li><a href="home.php">Home</a></li>
-          <li class="menu-active"><a href="#">Who Liked You?</a></li>
+          <li class="menu-active"><a href="home.php">Home</a></li>
+          <li><a href="likedStandardAcc.php">Who Liked You?</a></li>
           <li><a href="matched.php">Matched</a></li>
           </ul>
       </nav><!-- #nav-menu-container -->
@@ -62,10 +90,10 @@
   <!--==========================
     Get Started Section
   ============================-->
-  <section id="get-started" class="padd-section text-center wow fadeInUp">
+  <section id="team" class="padd-section text-center wow fadeInUp">
 
 	<div class="search-container">
-    <form action="/action_page.php">
+    <form action="action_page.php">
       <input type="text" placeholder="Search by name..." name="search">
       <button type="submit"><i class="fa fa-search"></i></button>
     </form>
@@ -73,95 +101,43 @@
     <div class="container">
       <div class="section-title text-center">
 
-        <h3>Your Liker(s) </h3>
+        <h3>Your Liker(s)</h3>
         <p class="separator">One step ahead...</p>
 
       </div>
     </div>
-
-    <div class="container">
+	
+	<div class="container">
       <div class="row">
 
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>21, Jakarta</h5>
-			<button class="btn"><i class="fa fa-heart"></i></button>
-          </div>
-        </div>
+      <?php
+        $Query = "SELECT * FROM `users` WHERE `id` IN (SELECT `dilike` FROM `liked` WHERE `yangLike` = '100');"; //100 -> ganti id
+        $Result = mysqli_query($Connect, $Query) or die($Connect);
 
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>22, Tangerang</h5>
-			<button class="btn"><i class="fa fa-heart"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>32, Surabaya</h5>
-			<button class="btn"><i class="fa fa-heart"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>19, Palembang</h5>
-			<button class="btn"><i class="fa fa-heart"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>25, Semarang</h5>
-			<button class="btn"><i class="fa fa-heart"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>21, Tangerang</h5>
-			<button class="btn"><i class="fa fa-heart"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-			<h5>27, Bekasi</h5>
-			<button class="btn"><i class="fa fa-heart"></i></button>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-block">
-            <img src="img/pp.png" alt="img" class="img-fluid">
-            <h4>Lorem</h4>
-            <h5>22, Palangkaraya</h5>
-			<button class="btn"><i class="fa fa-heart"></i></button>
-          </div>
-		  
-        </div>
-
-      </div>
+        while($DATA = $Result->fetch_assoc())
+        {
+          echo "<div class='col-md-6 col-md-4 col-lg-3'>";
+              echo "<div class='team-block bottom'>";
+                echo "<img src='" . $DATA['foto'] . "' class='img-responsive' alt='img'>";
+                echo "<div class='team-content'>";
+                  echo "<h4>";
+                    echo $DATA['nama'];
+                    echo "</h4>";
+                    echo "<span>";
+                      echo $DATA['umur'] . ", " . $DATA['lokasi'];
+                    echo "</span>";
+                    //echo " <a href=\"AddFavorite.php?id=".$DATA['id']."\" class='btn btn-light'><i class='fa fa-heart'></i></a>";
+                echo "</div>";
+              echo "</div>";
+            echo "</div>";
+        }
+      ?>
 	  
-	  <div>
+	  <!--<div>
 			<a href="#" class="previous">&laquo; Previous</a>
 			<a href="#" class="next">Next &raquo;</a>
 	  </div>
-    </div>
+    </div>-->
 
   </section>
   
