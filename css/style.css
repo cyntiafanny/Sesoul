@@ -1125,6 +1125,7 @@ body.mobile-nav-active #mobile-nav-toggle i {
 #newsletter {
   background: transparent url(../img/newsletter-bg.jpg) no-repeat center top fixed;
   background-size: cover;
+  
 }
 
 #newsletter .overlay {
@@ -1409,7 +1410,9 @@ body.mobile-nav-active #mobile-nav-toggle i {
   background-color: #f1f1f1;
   border-radius: 5px;
   padding: 10px;
-  margin: 10px 0;
+  margin: auto;
+  margin-bottom:10px;
+  width: 1200px;
 }
 
 .darker {
