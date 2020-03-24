@@ -47,7 +47,6 @@ CREATE TABLE matched (
   id int(5) NOT NULL auto_increment primary key,
   user1 int(5) NOT NULL,
   user2 int(5) NOT NULL,
-  chat int(3) NOT NULL,
   FOREIGN KEY (user1) REFERENCES users(id),
   FOREIGN KEY (user2) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -110,9 +109,9 @@ INSERT INTO users (id, username, password, nama, umur, lokasi, foto) VALUES
 
 
 INSERT INTO matched VALUES
-(1, 30, 28, 1),
-(2, 22, 8, 2),
-(3, 1, 30, 3);
+(1, 30, 28),
+(2, 22, 8),
+(3, 1, 30);
 
 INSERT INTO liked VALUES
 (1, 30, 28),

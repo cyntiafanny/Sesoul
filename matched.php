@@ -64,11 +64,7 @@
   ============================-->
   <section id="get-started" class="padd-section text-center wow fadeInUp">
 
-	<div class="search-container">
-    <form action="/action_page.php">
-      <input type="text" placeholder="Search by name..." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
+	
   </div>
     <div class="container">
       <div class="section-title text-center">
@@ -89,13 +85,20 @@
 			$dbname = "sesoul";
 			$password = "";
 			
+			$user = $_COOKIE['loggedin'];
+			
 			$db = new mysqli($host, $username, $password, $dbname);
-			$userid = "SELECT id FROM users WHERE username = 'azaz'";
+			$userid = "SELECT id FROM users WHERE username ='".$user."'";
 			$resultid = $db->query($userid);
+			
 			$rowid = $resultid->fetch_assoc();
 			
-			$matched = "SELECT user1, chat FROM matched WHERE user2 = '".$rowid['id']."' UNION SELECT user2, chat FROM matched WHERE user1 = '".$rowid['id']."'";
+			$matched = "SELECT user1, id FROM matched WHERE user2 = '".$rowid['id']."' UNION SELECT user2, chat FROM matched WHERE user1 = '".$rowid['id']."'";
 			$resultmatched = $db->query($matched);
+			if ($resultmatched->num_rows < 1)
+			{
+				echo "<p></t>You don't have match</p>";
+			}
 			
 			while($rowmatched = $resultmatched->fetch_assoc()){
 				$query = "SELECT * FROM users WHERE id ='".$rowmatched['user1']."'";
@@ -108,7 +111,7 @@
 						echo '<img src="img/user/' .$row["foto"].'"alt="img" class="img-fluid">';
 						echo '<h4>' . $row["nama"].'</h4>';
 						echo '<h5>'.$row["umur"].', '.$row["lokasi"].'</h5>';
-						echo "<button class='btn' onClick=\"window.location.href='chat.php?q=".$rowmatched['chat']."'\"><i class='fa fa-comment'></i></button>";
+						echo "<button class='btn' onClick=\"window.location.href='chat.php?q=".$rowmatched['id']."'\"><i class='fa fa-comment'></i></button>";
 						echo '</div></div>';
 				}
 				

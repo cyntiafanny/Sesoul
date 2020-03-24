@@ -75,12 +75,9 @@
 			
 			$db = new mysqli($host, $username, $password, $dbname);
 	
-	$sess = $_GET['q'];
-	$matched = "SELECT id FROM matched WHERE chat ='$sess'";
-	$resultmatched = $db->query($matched);
-	$rowmatched = $resultmatched->fetch_assoc();
+	$matched = $_GET['q'];
 	
-	$chat = "SELECT nama, isi FROM chat WHERE matchedid ='".$rowmatched['id']."'";
+	$chat = "SELECT nama, isi FROM chat WHERE matchedid ='".$matched."'";
 	$resultchat = $db->query($chat);
 	
 	while($rowchat = $resultchat->fetch_assoc()){
@@ -89,7 +86,6 @@
 		echo '<p>'.$rowchat['isi'].'</p>';
 		echo '</div>';
 	}
-	
 	?>
   
   
@@ -108,8 +104,16 @@
 		
 		<?php
 			$chatIsi = $_POST['message'];
+			$user = $_COOKIE['loggedin'];
 			
-			$que = "INSERT INTO chat"
+			$nama = "SELECT nama FROM users WHERE username ='".$user."'";
+			$resultnama = $db->query($nama);
+			$hasilnama = $resultnama->fetch_assoc();
+			
+			$que = "INSERT INTO chat (matchedid, nama, isi) VALUES
+			('$matched', '".$hasilnama['nama']."', '$chatIsi')";
+			$resultque = $db->query($que);
+			
 		
 		?>
 		

@@ -14,16 +14,14 @@
         $user = $_POST['username'];
         $pass = $_POST['password'];
 
-        $sql = "SELECT * FROM users WHERE username = '$user' AND password='$pass";
+        $sql = "SELECT * FROM users WHERE username = '$user' AND password='$pass'";
 
         $result = mysqli_query($conn,$sql);
         $count = mysqli_num_rows($result);
 
         if($count == 1){
             $cookie_value = $user;
-            $cookie_statsval = "standart";
             setcookie($cookie_name, $cookie_value, time() + (7200), "/");
-            setcookie($cookie_stats, $cookie_statsval, time() + (7200), "/");
             header("Location: home.php");
         }else{
             echo "Username or password is incorrect!";
