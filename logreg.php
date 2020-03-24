@@ -31,7 +31,7 @@
     }
     else if(isset($_POST['register'])){
         if($_POST['pass']==$_POST['repass']){
-			
+			0
 			$username=$_POST['username'];
 			$password=$_POST['password'];
 			$nama=$_POST['nama'];
