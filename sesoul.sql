@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 
 
 CREATE TABLE users (
-  id int(5) NOT NULL primary key,
+  id int(5) NOT NULL auto_increment primary key,
   username varchar(100) DEFAULT NULL,
   password varchar(18) DEFAULT NULL,
   nama varchar(100) DEFAULT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE users (
 --
 
 CREATE TABLE matched (
-  id int(5) NOT NULL primary key,
+  id int(5) NOT NULL auto_increment primary key,
   user1 int(5) NOT NULL,
   user2 int(5) NOT NULL,
   chat int(3) NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE matched (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE liked (
-  id int(5) NOT NULL primary key,
+  id int(5) NOT NULL auto_increment primary key,
   yangLike int(5) NOT NULL,
   dilike int(5) NOT NULL,
   FOREIGN KEY (yangLike) REFERENCES users(id),
@@ -61,7 +61,7 @@ CREATE TABLE liked (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE chat(
-chatid int(5) NOT NULL primary key,
+chatid int(5) NOT NULL auto_increment primary key,
   matchedid int(5) NOT NULL,
   nama varchar(100) NOT NULL,
   isi varchar (100) NOT NULL,

@@ -95,7 +95,6 @@
 
 <section id="hero" class="wow fadeIn">
     <div class="hero-container">
-      <h1>Welcome to </h1>
 	  <h1>Welcome to Sesoul</h1>
       <h2>Find your Match here...</h2>
       <img src="img/start.png">
