@@ -14,9 +14,9 @@
       die("Connection failed: " . $Connect->connect_error);
   }
   
-  if(isset($_COOKIE['Akun']))
+  if(isset($_COOKIE['Type']))
   {
-    $Tipe = base64_decode(str_pad(strtr($_COOKIE['Akun'], '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT)); 
+    $Tipe = base64_decode(str_pad(strtr($_COOKIE['Type'], '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT)); 
 
     if($Tipe != "Premium")
     {
@@ -24,7 +24,7 @@
     }
 
     $Tipe = rtrim(strtr(base64_encode("Standard"), '+/', '-_'), '=');
-    setcookie('Akun', $Tipe, time() + (86400 * 30), "/");
+    setcookie('Type', $Tipe, time() + (86400 * 30), "/");
   }
 ?>
 
@@ -110,14 +110,20 @@
       <div class="row">
 
       <?php
-        $Query = "SELECT * FROM `users` WHERE `id` IN (SELECT `dilike` FROM `liked` WHERE `yangLike` = '100');"; //100 -> ganti id
+        $Username = $_COOKIE['loggedin'];   // Ambil id dari username
+        $Query = "SELECT `id` FROM `users` WHERE `username` = '$Username'";
+        $Result = mysqli_query($Connect, $Query) or die($Connect);
+        $DATA = $Result->fetch_assoc();
+        $IDUser = $DATA['id'];
+
+        $Query = "SELECT * FROM `users` WHERE `id` IN (SELECT `dilike` FROM `liked` WHERE `yangLike` = $IDUser);"; //100 -> ganti id
         $Result = mysqli_query($Connect, $Query) or die($Connect);
 
         while($DATA = $Result->fetch_assoc())
         {
           echo "<div class='col-md-6 col-md-4 col-lg-3'>";
               echo "<div class='team-block bottom'>";
-                echo "<img src='" . $DATA['foto'] . "' class='img-responsive' alt='img'>";
+                echo "<img src='img/user/" . $DATA['foto'] . "' class='img-responsive' alt='img'>";
                 echo "<div class='team-content'>";
                   echo "<h4>";
                     echo $DATA['nama'];
