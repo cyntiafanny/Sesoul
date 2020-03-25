@@ -104,7 +104,9 @@
       <div class="row">
 
       <?php
-        $Query = "SELECT `id`, `nama`, `lokasi`, `umur`, `foto` FROM `users`;";
+		$user = $_COOKIE['loggedin'];
+	  
+        $Query = "SELECT `id`, `nama`, `lokasi`, `umur`, `foto` FROM `users` WHERE NOT username ='".$user."'";
         $Result = mysqli_query($Connect, $Query) or die($Connect);
         $Row = mysqli_num_rows($Result);
     

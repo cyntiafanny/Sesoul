@@ -94,7 +94,7 @@
 			
 			$rowid = $resultid->fetch_assoc();
 			
-			$matched = "SELECT user1, id FROM matched WHERE user2 = '".$rowid['id']."' UNION SELECT user2, chat FROM matched WHERE user1 = '".$rowid['id']."'";
+			$matched = "SELECT user1, id FROM matched WHERE user2 = '".$rowid['id']."' UNION SELECT user2, id FROM matched WHERE user1 = '".$rowid['id']."'";
 			$resultmatched = $db->query($matched);
 			if ($resultmatched->num_rows < 1)
 			{

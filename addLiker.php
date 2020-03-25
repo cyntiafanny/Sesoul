@@ -48,10 +48,23 @@
         $stmt->execute();
         $stmt->close();
     
-        header("Location: home.php");
-    }
-    else
+		$matched = "SELECT id FROM liked WHERE yangLike =".$IDUser." AND dilike =".$ID." UNION SELECT id FROM liked WHERE dilike =".$IDUser." AND yangLike =".$ID;
+		$resultmatched = $Connect->query($matched);
+		
+		if ($resultmatched->num_rows >1)
+			{
+				$newmatch = "INSERT INTO matched (user1, user2) VALUES (".$IDUser.",".$ID.")";
+				$resultnewmatch = $Connect->query($newmatch);
+			}
+	
+        //header("Location: home.php");
+    
+	}
+	
+	else
     {
         header("Location: home.php");
     }
+	
+    
 ?>
