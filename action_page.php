@@ -109,7 +109,7 @@
       <?php
         $search = $_GET['search'];
 
-        $Query = "SELECT * FROM `users` WHERE `nama` LIKE '%$search%'";
+        $Query = "SELECT `username`, `nama`, `foto`, `umur`, `lokasi` FROM `users` WHERE `nama` = '%$search%'";
         $Result = mysqli_query($Connect, $Query) or die($Connect);
         $Row = mysqli_num_rows($Result);
 
@@ -127,7 +127,7 @@
                         echo "<span>";
                             echo $DATA['umur'] . ", " . $DATA['lokasi'];
                         echo "</span>";
-                        echo " <a href=\"addLiker.php?id=".$DATA['id']."\" class='btn btn-light'><i class='fa fa-heart'></i></a>";
+                        echo " <a href=\"addLiker.php?id=".$DATA['username']."\" class='btn btn-light'><i class='fa fa-heart'></i></a>";
                     echo "</div>";
                     echo "</div>";
                 echo "</div>";

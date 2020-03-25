@@ -104,7 +104,7 @@
       <div class="row">
 
       <?php
-        $Query = "SELECT `id`, `nama`, `lokasi`, `umur`, `foto` FROM `users`;";
+        $Query = "SELECT `username`, `nama`, `lokasi`, `umur`, `foto` FROM `users`;";
         $Result = mysqli_query($Connect, $Query) or die($Connect);
         $Row = mysqli_num_rows($Result);
     
@@ -120,7 +120,7 @@
                     echo "<span>";
                       echo $DATA['umur'] . ", " . $DATA['lokasi'];
                     echo "</span>";
-                    echo " <a href=\"addLiker.php?id=".$DATA['id']."\" class='btn btn-light'><i class='fa fa-heart'></i></a>";
+                    echo " <a href=\"addLiker.php?id=".$DATA['username']."\" class='btn btn-light'><i class='fa fa-heart'></i></a>";
                 echo "</div>";
               echo "</div>";
             echo "</div>";

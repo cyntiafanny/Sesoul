@@ -15,13 +15,19 @@
         die("Connection failed: " . $Connect->connect_error);
     }
 
-    $ID = $_GET['id'];
+    $Nama = $_GET['id'];
+
     $Username = $_COOKIE['loggedin'];   
     //$Username = substr($Username, 3); // Ngambil id user dapet dari session. Kalo sessionnya CEH#username
     $Query = "SELECT `id` FROM `users` WHERE `username` = '$Username'";
     $Result = mysqli_query($Connect, $Query) or die($Connect);
     $DATA = $Result->fetch_assoc();
     $IDUser = $DATA['id'];
+
+    $Query = "SELECT `id` FROM `users` WHERE `username` = '$Nama'";
+    $Result = mysqli_query($Connect, $Query) or die($Connect);
+    $DATA = $Result->fetch_assoc();
+    $IDuserDiLike = $DATA['id'];
 
     $stmt = $Connect->prepare("SELECT `dilike` FROM `liked` WHERE `yangLike` = ?"); // Check udah pernah dilike atau belum
     $stmt->bind_param('s', $IDUser);
@@ -31,7 +37,7 @@
     while($Already = $result->fetch_assoc())
     {
         echo $Already['dilike'] .  "<br>";
-        if($Already['dilike'] === $ID)
+        if($Already['dilike'] === $IDuserDiLike)
         {
             echo "Your Alerady Liked This People <br>";
             echo $Already['dilike'] .  "<br>";
@@ -41,17 +47,19 @@
         }
     }
 
-    if($Cek != true && $ID != $IDUser)
+    if($Cek != true && $IDuserDiLike != $IDUser)
     {
+
+        
         $stmt = $Connect->prepare("INSERT INTO `liked` (yangLike, dilike) VALUES (?, ?)");
-        $stmt->bind_param('dd', $IDUser, $ID);
+        $stmt->bind_param('dd', $IDUser, $IDuserDiLike);
         $stmt->execute();
         $stmt->close();
     
-        header("Location: home.php");
+        //header("Location: home.php");
     }
     else
     {
-        header("Location: home.php");
+        //header("Location: home.php");
     }
 ?>

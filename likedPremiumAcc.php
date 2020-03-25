@@ -20,7 +20,7 @@
 
     if($Tipe != "Premium")
     {
-      header("Location: likedStandardAcc.php");
+      //header("Location: likedStandardAcc.php");
     }
 
     $Tipe = rtrim(strtr(base64_encode("Standard"), '+/', '-_'), '=');
