@@ -113,6 +113,7 @@
         $Query = "SELECT * FROM `users` WHERE `id` IN (SELECT `dilike` FROM `liked` WHERE `yangLike` = '100');"; //100 -> ganti id
         $Result = mysqli_query($Connect, $Query) or die($Connect);
 
+		
         while($DATA = $Result->fetch_assoc())
         {
           echo "<div class='col-md-6 col-md-4 col-lg-3'>";
@@ -129,6 +130,11 @@
                 echo "</div>";
               echo "</div>";
             echo "</div>";
+			
+			if ($Result->num_rows < 1)
+			{
+				echo "<p></t>You don't have liker. Start to like them first</p>";
+			}
         }
       ?>
 	  
