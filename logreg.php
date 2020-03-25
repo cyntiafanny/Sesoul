@@ -35,7 +35,7 @@
 			$nama=$_POST['nama'];
 			$umur=$_POST['umur'];
 			$lokasi=$_POST['lokasi'];
-			$foto='img/'.$_FILES['avatar']['name'];
+			$foto=$_FILES['avatar']['name'];
 
 			if(preg_match("!image!", $_FILES['avatar']['type'])){
 
