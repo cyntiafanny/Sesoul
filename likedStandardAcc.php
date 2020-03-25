@@ -14,9 +14,9 @@
       die("Connection failed: " . $Connect->connect_error);
   }
   
-  if(isset($_COOKIE['Akun']))
+  if(isset($_COOKIE['Type']))
   {
-    $Tipe = base64_decode(str_pad(strtr($_COOKIE['Akun'], '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT)); 
+    $Tipe = base64_decode(str_pad(strtr($_COOKIE['Type'], '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT)); 
 
     if($Tipe == "Premium")
     {

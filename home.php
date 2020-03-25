@@ -15,10 +15,10 @@
   }
 
   $Tipe = rtrim(strtr(base64_encode("Standard"), '+/', '-_'), '='); //Masukin pas login aja
-  setcookie('Akun', $Tipe, time() + (86400 * 30), "/");
-  $_SESSION['SID'] = "CEHadmin";
-  setcookie('SID', $_SESSION['SID'], time() + (86400 * 30), "/");
-  session_start();
+  setcookie('Type', $Tipe, time() + (86400 * 30), "/");
+  //$_SESSION['SID'] = "CEHadmin";
+  //setcookie('SID', $_SESSION['SID'], time() + (86400 * 30), "/");
+  //session_start();
 ?>
 
 <!DOCTYPE html>

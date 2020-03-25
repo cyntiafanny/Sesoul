@@ -16,8 +16,8 @@
     }
 
     $ID = $_GET['id'];
-    $Username = $_COOKIE['SID'];   
-    $Username = substr($Username, 3); // Ngambil id user dapet dari session. Kalo sessionnya CEH#username
+    $Username = $_COOKIE['loggedin'];   
+    //$Username = substr($Username, 3); // Ngambil id user dapet dari session. Kalo sessionnya CEH#username
     $Query = "SELECT `id` FROM `users` WHERE `username` = '$Username'";
     $Result = mysqli_query($Connect, $Query) or die($Connect);
     $DATA = $Result->fetch_assoc();
@@ -43,21 +43,8 @@
 
     if($Cek != true && $ID != $IDUser)
     {
-        $Query = "SELECT `id` FROM `liked` ORDER BY `id` DESC LIMIT 1";
-        $Result = mysqli_query($Connect, $Query) or die($Connect);
-        $DATA = $Result->fetch_assoc();
-    
-        $Last = $DATA['id'];
-    
-        $LastIDINT = (int)$Last + 1;
-        $LastID = (string)$LastIDINT;
-    
-        echo $LastID . "<br>";
-        echo $IDUser . "<br>";
-        echo $ID . "<br>";
-    
-        $stmt = $Connect->prepare("INSERT INTO `liked` (id, yangLike, dilike) VALUES (?, ?, ?)");
-        $stmt->bind_param('sss', $LastID, $IDUser, $ID);
+        $stmt = $Connect->prepare("INSERT INTO `liked` (yangLike, dilike) VALUES (?, ?)");
+        $stmt->bind_param('dd', $IDUser, $ID);
         $stmt->execute();
         $stmt->close();
     
